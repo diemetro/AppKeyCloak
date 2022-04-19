@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  iam:
+  keycloak:
     image: "quay.io/keycloak/keycloak:17.0.1"
     environment:
         DB_VENDOR: mariadb
@@ -9,7 +9,7 @@ services:
         DB_PORT: 3306
         DB_DATABASE: iam
         DB_USER: iam
-        DB_PASSWORD: password
+        DB_PASSWORD: keycloak
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: Pa55w0rd
         KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
