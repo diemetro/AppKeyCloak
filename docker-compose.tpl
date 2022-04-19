@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   keycloak:
-    image: "quay.io/keycloak/keycloak:17.0.1"
+    image: "quay.io/keycloak/keycloak:latest"
     environment:
         DB_VENDOR: mariadb
         MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
@@ -17,6 +17,13 @@ services:
         #JDBC_PARAMS: "connectTimeout=30000"
     ports:
         - 8081:8081
+    command: /opt/keycloak/bin/kc.sh start-dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
     networks:
       - internal-net
       - traefik-net
