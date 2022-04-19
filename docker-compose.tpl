@@ -5,11 +5,11 @@ services:
     environment:
         DB_VENDOR: mariadb
         MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
-        DB_ADDR: mysql_mariadb
+        DB_ADDR: mysql-main_mariadb
         DB_PORT: 3306
         DB_DATABASE: iam
-        DB_USER: iam
-        DB_PASSWORD: keycloak
+        DB_USER: iam-svc
+        DB_PASSWORD: "7$X5GQTpPIcF"
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: Pa55w0rd
         KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
