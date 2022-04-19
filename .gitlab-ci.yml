@@ -1,5 +1,6 @@
 stages:
   - deploy
+
 include:
   - project: 'iac/appcicd'
     ref: main
