@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   keycloak:
-    image: "quay.io/keycloak/keycloak:latest"
+    image: "jboss/keycloak"
     environment:
         DB_VENDOR: mariadb
         MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
