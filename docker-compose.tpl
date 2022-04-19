@@ -17,7 +17,6 @@ services:
         #JDBC_PARAMS: "connectTimeout=30000"
     ports:
         - 8081:8081
-    command: 
     networks:
       - internal-net
       - traefik-net
