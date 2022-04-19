@@ -5,7 +5,7 @@ include:
   - project: 'iac/appcicd'
     ref: main
     file: '/templates/deploy_keycloak_tpl.yml'
-
+#
 deploy:
   stage: deploy
   image: docker:dind

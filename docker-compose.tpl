@@ -17,7 +17,7 @@ services:
         #JDBC_PARAMS: "connectTimeout=30000"
     ports:
         - 8081:8081
-    command: "/opt/keycloak/bin/kc.sh start"
+    command: start-dev
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/"]
       interval: 10s
