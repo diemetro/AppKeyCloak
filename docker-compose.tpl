@@ -14,7 +14,7 @@ services:
         KEYCLOAK_PASSWORD: Pa55w0rd
         KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
         KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
-        #JDBC_PARAMS: "connectTimeout=30000"
+        ##JDBC_PARAMS: "connectTimeout=30000"
     ports:
         - 8081:8081
     networks:
