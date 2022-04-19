@@ -1,30 +1,27 @@
-stages:        
-  - build
-  - test
+stages:
   - deploy
 
-build:    
-  stage: build
-  script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
+include:
+  - project: 'iac/appcicd'
+    ref: main
+    file: '/templates/deploy_keycloak_tpl.yml'
 
-unit-test:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-lint-test:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
-
-deploy:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+master:deploy:
+  stage: deploy
+  image: docker:dind
+  variables:
+    SSH_URL: ${DEPLOY_SSH_USER}@${DEPLOY_SSH_HOST}
+    SSH_PRIVATE_KEY: ${DEPLOY_PRIVATE_KEY}
+    SSH_PORT: ${DEPLOY_SSH_PORT}
+    DEPLOY_DIR: /tmp/${CI_COMMIT_SHORT_SHA}/
+    MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    DB_PORT: 3366
+    PROJECT_NAME: AppDB
+    PROJECT_DOMAIN: iam-${CI_COMMIT_REF_NAME}.it.scancity.ru
+    PMA_HOSTS: mysql-${CI_COMMIT_REF_NAME}_mariadb,mysql_mariadb,mysql-testing_mariadb
+    PMA_ARBITRARY: 1
+  extends:
+    - .deploy_tpl
+  when: manual
+  only:
+    - main
