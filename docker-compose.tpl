@@ -15,7 +15,7 @@ services:
         KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
         KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
         ##JDBC_PARAMS: "connectTimeout=30000"
-    command: ["-Djboss.socket.binding.port-offset=0"]
+    command: ["-Djboss.socket.binding.port-offset=1"]
     ports:
         - 8081:8081
     networks:
