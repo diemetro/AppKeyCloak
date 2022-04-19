@@ -6,7 +6,7 @@ include:
     ref: main
     file: '/templates/deploy_keycloak_tpl.yml'
 
-master:deploy:
+deploy:
   stage: deploy
   image: docker:dind
   variables:
@@ -16,12 +16,10 @@ master:deploy:
     DEPLOY_DIR: /tmp/${CI_COMMIT_SHORT_SHA}/
     MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     DB_PORT: 3366
-    PROJECT_NAME: AppDB
+    PROJECT_NAME: AppKeyCloak
     PROJECT_DOMAIN: iam-${CI_COMMIT_REF_NAME}.it.scancity.ru
-    PMA_HOSTS: mysql-${CI_COMMIT_REF_NAME}_mariadb,mysql_mariadb,mysql-testing_mariadb
-    PMA_ARBITRARY: 1
   extends:
-    - .deploy_tpl
+    - .deploy_keycloak_tpl
   when: manual
   only:
     - main
