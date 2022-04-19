@@ -16,7 +16,7 @@ services:
         KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
         #JDBC_PARAMS: "connectTimeout=30000"
     ports:
-        - 8088:8088
+        - 8081:8081
     networks:
       - internal-net
       - traefik-net
