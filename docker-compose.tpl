@@ -17,7 +17,7 @@ services:
         ##JDBC_PARAMS: "connectTimeout=30000"
     command: ["-Djboss.socket.binding.port-offset=1"]
     ports:
-        - 8081:8081
+        - "8081:8081"
     networks:
       - internal-net
       - traefik-net
