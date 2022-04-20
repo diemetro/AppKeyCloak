@@ -3,27 +3,33 @@ services:
   keycloak:
     image: "jboss/keycloak:latest"
     environment:
-        DB_VENDOR: mariadb
+        DB_VENDOR: MARIADB
         MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
         DB_ADDR: mysql-main_mariadb
         DB_PORT: 3306
         DB_DATABASE: iam
         DB_USER: iam-svc
         DB_PASSWORD: 7X5GQTpPLcF
-        KEYCLOAK_USER: "${KEYCLOAK_ADMIN}"
-        KEYCLOAK_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
-        KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
-        KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
+        KEYCLOAK_USER: "${KEYCLOAK_USER}"
+        KEYCLOAK_PASSWORD: "${KEYCLOAK_PASSWORD}"
+        PROXY_ADDRESS_FORWARDING=true
         ##JDBC_PARAMS: "connectTimeout=30000"
+        TZ="Europe/Moscow"
     command:
       - "-Djboss.http.port=8081"
       - "-Djboss.https.port=8443"
+      - "-Djboss.socket.binding.port-offset=0"
     networks:
       - internal-net
       - traefik-net
     ports:
       - "8081:8081"
       - "8443:8443"
+    healthcheck:
+       test: ["CMD-SHELL", "curl -U --fail http://localhost:8081/auth/realms/master"]
+       interval: 10s
+       timeout: 1s
+       retries: 30
     deploy:
       mode: replicated
       replicas: 1
