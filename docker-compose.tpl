@@ -12,6 +12,8 @@ services:
         DB_PASSWORD: 7X5GQTpPLcF
         KEYCLOAK_USER: "${KEYCLOAK_USER}"
         KEYCLOAK_PASSWORD: "${KEYCLOAK_PASSWORD}"
+        KEYCLOAK_LOGLEVEL: WARN
+        PROXY_ADDRESS_FORWARDING: 'true'
         ##JDBC_PARAMS: "connectTimeout=30000"
         TZ: "Europe/Moscow"
     command:
@@ -34,13 +36,17 @@ services:
         window: 10s
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.entrypoints=websecure"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.rule=Host(`${PROJECT_DOMAIN}`)"
-        - "traefik.http.services.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.loadbalancer.server.port=8443"
+        - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.service=keycloak"
+        - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.entrypoints=websecure"
+        - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.tls=true"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.tls.certresolver=myresolver"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.middlewares=${PROJECT_NAME}-${CI_COMMIT_REF_NAME}-https"
         - "traefik.http.middlewares.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}-https.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}-https.compress=true"
         - "traefik.docker.network=traefik-net"
+        - "traefik.http.services.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.loadbalancer.server.port=8081"
+        - "traefik.http.services.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.loadbalancer.passhostheader=true"
 
 networks:
   internal-net:
