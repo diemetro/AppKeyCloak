@@ -12,7 +12,6 @@ services:
         DB_PASSWORD: 7X5GQTpPLcF
         KEYCLOAK_USER: "${KEYCLOAK_USER}"
         KEYCLOAK_PASSWORD: "${KEYCLOAK_PASSWORD}"
-        PROXY_ADDRESS_FORWARDING: "true"
         ##JDBC_PARAMS: "connectTimeout=30000"
         TZ: "Europe/Moscow"
     command:
