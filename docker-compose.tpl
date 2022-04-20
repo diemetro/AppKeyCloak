@@ -20,7 +20,10 @@ services:
       - internal-net
       - traefik-net
     ports:
-      - "8081:8081"
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        mode: host
     deploy:
       mode: replicated
       replicas: 1
