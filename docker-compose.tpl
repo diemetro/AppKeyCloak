@@ -20,7 +20,7 @@ services:
       - target: 8081
         published: 8081
         protocol: tcp
-        mode: host
+        mode: ingress
     networks:
       - internal-net
       - traefik-net
