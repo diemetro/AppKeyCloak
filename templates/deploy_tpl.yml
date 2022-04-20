@@ -1,4 +1,4 @@
-.deploy_tpl:
+.deploy_keycloak_tpl:
   before_script:
     - apk add --no-cache sshpass openssh-client
   script:
@@ -15,13 +15,20 @@
        ssh -p ${SSH_PORT} -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes ${SSH_URL} \
        DEPLOY_DIR=${DEPLOY_DIR} \
        MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD} \
+       DB_VENDOR=${DB_VENDOR} \
+       DB_ADDR=${DB_ADDR} \
        DB_PORT=${DB_PORT} \
+       DB_DATABASE=${DB_DATABASE} \
+       DB_USER=${DB_USER} \
+       DB_PASSWORD=${DB_PASSWORD} \
+       KEYCLOAK_USER=${KEYCLOAK_USER} \
+       KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD} \
+       KEYCLOAK_LOGLEVEL=${KEYCLOAK_LOGLEVEL} \
        CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} \
        PROJECT_NAME=${PROJECT_NAME} \
        PROJECT_DOMAIN=${PROJECT_DOMAIN} \
-       PMA_HOST=${PMA_HOST} \
-       PMA_HOSTS=${PMA_HOSTS} \
-       PMA_ARBITRARY=${PMA_ARBITRARY} \
+       PROXY_ADDRESS_FORWARDING=${PROXY_ADDRESS_FORWARDING} \
+       TZ=${TZ} \
        'bash -s' < ./deploy.sh
 
   tags:

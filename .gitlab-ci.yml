@@ -2,10 +2,8 @@ stages:
   - deploy
 
 include:
-  - project: 'iac/appcicd'
-    ref: main
-    file: '/templates/deploy_keycloak_tpl.yml'
-#
+  - local: '/templates/deploy_tpl.yml'
+
 deploy:
   stage: deploy
   image: docker:dind
@@ -15,11 +13,9 @@ deploy:
     SSH_PORT: ${DEPLOY_SSH_PORT}
     DEPLOY_DIR: /tmp/${CI_COMMIT_SHORT_SHA}/
     MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-    DB_PORT: 3366
     PROJECT_NAME: AppKeyCloak
     PROJECT_DOMAIN: iam-${CI_COMMIT_REF_NAME}.it.scancity.ru
   extends:
-    - .deploy_keycloak_tpl
-  when: manual
+    - .deploy_tpl
   only:
     - main
