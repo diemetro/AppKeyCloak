@@ -15,12 +15,10 @@ services:
         KEYCLOAK_ADMIN: "${KEYCLOAK_ADMIN}"
         KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD}"
         ##JDBC_PARAMS: "connectTimeout=30000"
-    command: ["-Djboss.http.port=8081"]
+    command: ["-Djboss.http.port=8081" "-Djboss.https.port=8443"]
     ports:
-      - target: 8081
-        published: 8081
-        protocol: tcp
-        mode: ingress
+      - "8081:8081"
+      - "8443:8443"
     networks:
       - internal-net
       - traefik-net
