@@ -25,11 +25,6 @@ services:
     ports:
       - "8081:8081"
       - "8443:8443"
-    healthcheck:
-       test: ["CMD-SHELL", "curl -U --fail http://localhost:8081/auth/realms/master"]
-       interval: 10s
-       timeout: 1s
-       retries: 30
     deploy:
       mode: replicated
       replicas: 1
