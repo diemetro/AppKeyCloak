@@ -19,8 +19,8 @@ services:
     networks:
       - internal-net
       - traefik-net
-    expose:
-      - 8081
+    ports:
+      - "8081:8081"
     deploy:
       mode: replicated
       replicas: 1
