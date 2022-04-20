@@ -37,7 +37,6 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.rule=Host(`${PROJECT_DOMAIN}`)"
-        - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.service=keycloak"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.entrypoints=websecure"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.tls=true"
         - "traefik.http.routers.${PROJECT_NAME}-${CI_COMMIT_REF_NAME}.tls.certresolver=myresolver"
