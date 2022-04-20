@@ -9,7 +9,7 @@ services:
         DB_PORT: 3306
         DB_DATABASE: iam
         DB_USER: iam-svc
-        DB_PASSWORD: 7X5GQTpPLcF
+        DB_PASSWORD: "${DB_PASSWORD}"
         KEYCLOAK_USER: "${KEYCLOAK_USER}"
         KEYCLOAK_PASSWORD: "${KEYCLOAK_PASSWORD}"
         KEYCLOAK_LOGLEVEL: WARN
