@@ -20,8 +20,8 @@ services:
       - internal-net
       - traefik-net
     ports:
-      - "8081:80"
-      - "8443:443"
+      - "80:8081"
+      - "443:8443"
     deploy:
       mode: replicated
       replicas: 1
